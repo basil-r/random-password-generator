@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+const { randomBytes } = require("node:crypto");
+
+const defaultSize = 32;
+const paramSize = Number.parseInt(process.argv[2]);
+const size = Number.isNaN(paramSize) ? defaultSize : paramSize;
+
+const start = 33;
+const end = 126;
+const length = end - start + 1;
+
+const password = randomBytes(size)
+  .map((byte) => (byte % length) + start)
+  .toString("ascii");
+
+console.log(password);
